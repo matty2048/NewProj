@@ -4,7 +4,6 @@
 #include <map>
 #include <imgui.h>
 #include "Renderer.h"
-#include "Camera.h"
 #include "Model.h"
 
 class Entity
@@ -42,10 +41,10 @@ private:
 };
 
 
-class CameraEntity : Entity,Camera
+class CameraEntity : Entity
 {
 public:
-	CameraEntity(glm::vec3 pos, glm::vec3 target,float fov);
+	CameraEntity(glm::vec3 pos, glm::vec3 target, float fov);// creates and initializes a new camera entity
 	virtual void OnUpdate() override {};
 	virtual void DoGUI() override;
 private:

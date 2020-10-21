@@ -51,4 +51,19 @@ void ModelEntity::CreateMatrix()
 	transform *= glm::scale(glm::mat4(1.0), glm::vec3(this->scale[0], this->scale[1], this->scale[2]));
 }
 
+CameraEntity::CameraEntity(glm::vec3 pos, glm::vec3 target, float fov) : fov(fov)
+{
+	target[0] = target.x;
+	target[1] = target.y;
+	target[2] = target.z;
 
+	positon[0] = pos.x;
+	positon[1] = pos.y;
+	positon[2] = pos.z;
+}
+
+void CameraEntity::DoGUI()
+{
+	if(ImGui::SliderFloat("fov",&this->fov,0,90)|
+
+}
