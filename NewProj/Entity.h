@@ -1,9 +1,11 @@
 #include <glm/glm.hpp>
+
 #include <glm/gtc/matrix_transform.hpp>
 #include <memory>
 #include <map>
 #include <imgui.h>
 #include "Renderer.h"
+#include "Camera.h"
 #include "Model.h"
 
 class Entity
@@ -41,15 +43,17 @@ private:
 };
 
 
-class CameraEntity : Entity
+class CameraEntity :public Entity
 {
 public:
+	CameraEntity(Camera cam);
 	CameraEntity(glm::vec3 pos, glm::vec3 target, float fov);// creates and initializes a new camera entity
-	virtual void OnUpdate() override {};
-	virtual void DoGUI() override;
+	virtual void OnUpdate() override; 
+	virtual void DoGUI() override; //does each update
 private:
-	float fov;
-	float target[3];
-	float positon[3];
-
+	float fov = { 45.0f };
+	float target[3] = { 0,0,-1 };
+	float positon[3] = { 0,0,0 };
+	Camera camera;
+	virtual void CreateMatrix() override;
 };

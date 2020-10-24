@@ -51,19 +51,43 @@ void ModelEntity::CreateMatrix()
 	transform *= glm::scale(glm::mat4(1.0), glm::vec3(this->scale[0], this->scale[1], this->scale[2]));
 }
 
-CameraEntity::CameraEntity(glm::vec3 pos, glm::vec3 target, float fov) : fov(fov)
+CameraEntity::CameraEntity(Camera cam):camera(cam)
 {
-	target[0] = target.x;
-	target[1] = target.y;
-	target[2] = target.z;
+}
 
-	positon[0] = pos.x;
-	positon[1] = pos.y;
-	positon[2] = pos.z;
+
+
+CameraEntity::CameraEntity(glm::vec3 pos, glm::vec3 target, float fov)
+{
+	this->target[0] = target.x;
+	this->target[1] = target.y;
+	this->target[2] = target.z;
+
+	this->positon[0] = pos.x;
+	this->positon[1] = pos.y;
+	this->positon[2] = pos.z;
+}
+
+void CameraEntity::OnUpdate()
+{
+	if (this->camera.bound) camera.bind();
 }
 
 void CameraEntity::DoGUI()
 {
-	if(ImGui::SliderFloat("fov",&this->fov,0,90)|
+	if (ImGui::SliderFloat("FOV", &this->fov, 0, 90) ||
+		ImGui::SliderFloat3("Target", this->target, 0, 10) ||
+		ImGui::SliderFloat3("Position", this->positon, 0, 10)
+		) CreateMatrix();
+	if (ImGui::Button("Bind Camera"))
+	{
+		this->camera.bound = !this->camera.bound;
+	}
+}
 
+void CameraEntity::CreateMatrix()
+{
+	this->camera.projection = glm::perspective(glm::radians(this->fov), (float)Renderer::Size_x / (float)Renderer::Size_y, 1.0f, -100000.0f);
+	this->camera.transform = glm::lookAt(glm::vec3(this->target[0], this->target[1], this->target[2]), 
+	glm::vec3(this->positon[0], this->positon[1], this->positon[2]), glm::vec3(0.0f, 1.0f, 0.0f));
 }

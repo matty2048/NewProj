@@ -43,6 +43,8 @@ public:
 	static void clear(); //clears the currently bound framebuffer
 	static void shutdown();
 	
+
+
 	static Shader currentshader;
 	
 	static void additem(queueitem item);
