@@ -36,8 +36,10 @@ void GUI::entitytree(std::vector<std::shared_ptr<Entity>>& ents)
 	
 	for (unsigned int i=0;i<ents.size();i++)
 	{
-		
-		if (ImGui::TreeNode(std::to_string(i).c_str())) {
+		std::string nodename;
+		nodename.append(std::to_string(i));
+		nodename.append(ents[i]->type);
+		if (ImGui::TreeNode(nodename.c_str())) {
 			ents[i]->DoGUI(); //draws all the required sliders/buttons for entity
 			if(ImGui::SmallButton("X")) ents.erase(ents.begin() + i);
 			ImGui::TreePop();	

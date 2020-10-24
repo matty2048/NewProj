@@ -23,6 +23,7 @@ ModelEntity::ModelEntity(const char* path)
 		modelcache.emplace(path,this->model);
 	}
 	CreateMatrix();
+	this->type = " Model";
 }
 
 void ModelEntity::OnUpdate()
@@ -53,6 +54,8 @@ void ModelEntity::CreateMatrix()
 
 CameraEntity::CameraEntity(Camera cam):camera(cam)
 {
+	this->type = " Camera";
+	CreateMatrix();
 }
 
 
@@ -66,6 +69,11 @@ CameraEntity::CameraEntity(glm::vec3 pos, glm::vec3 target, float fov)
 	this->positon[0] = pos.x;
 	this->positon[1] = pos.y;
 	this->positon[2] = pos.z;
+
+	this->fov = fov;
+
+	CreateMatrix();
+	this->type = " Camera";
 }
 
 void CameraEntity::OnUpdate()
@@ -76,8 +84,8 @@ void CameraEntity::OnUpdate()
 void CameraEntity::DoGUI()
 {
 	if (ImGui::SliderFloat("FOV", &this->fov, 0, 90) ||
-		ImGui::SliderFloat3("Target", this->target, 0, 10) ||
-		ImGui::SliderFloat3("Position", this->positon, 0, 10)
+		ImGui::SliderFloat3("Target", this->target, -5, 5) ||
+		ImGui::SliderFloat3("Position", this->positon, -5, 5)
 		) CreateMatrix();
 	if (ImGui::Button("Bind Camera"))
 	{

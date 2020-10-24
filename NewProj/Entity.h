@@ -15,7 +15,7 @@ public:
 	virtual void OnUpdate() {};
 	virtual void DoGUI() {};
 	glm::mat4 GetMatrix() {};
-	
+	std::string type;
 private:
 	virtual void CreateMatrix() {}; 
 protected:
@@ -33,6 +33,7 @@ public:
 	ModelEntity(const char* path);
 	virtual void OnUpdate() override; //called to draw
 	virtual void DoGUI() override;
+	
 private:
 	virtual void CreateMatrix() override; //called before draw
 	float translate[3] = {0,0,0};
@@ -50,10 +51,12 @@ public:
 	CameraEntity(glm::vec3 pos, glm::vec3 target, float fov);// creates and initializes a new camera entity
 	virtual void OnUpdate() override; 
 	virtual void DoGUI() override; //does each update
+	
 private:
 	float fov = { 45.0f };
 	float target[3] = { 0,0,-1 };
 	float positon[3] = { 0,0,0 };
+	
 	Camera camera;
 	virtual void CreateMatrix() override;
 };
