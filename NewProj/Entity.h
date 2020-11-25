@@ -1,9 +1,11 @@
 #include <glm/glm.hpp>
+
 #include <glm/gtc/matrix_transform.hpp>
 #include <memory>
 #include <map>
 #include <imgui.h>
 #include "Renderer.h"
+#include "Camera.h"
 #include "Model.h"
 
 class Entity
@@ -13,7 +15,7 @@ public:
 	virtual void OnUpdate() {};
 	virtual void DoGUI() {};
 	glm::mat4 GetMatrix() {};
-	
+	std::string type;
 private:
 	virtual void CreateMatrix() {}; 
 protected:
@@ -31,6 +33,7 @@ public:
 	ModelEntity(const char* path);
 	virtual void OnUpdate() override; //called to draw
 	virtual void DoGUI() override;
+	
 private:
 	virtual void CreateMatrix() override; //called before draw
 	float translate[3] = {0,0,0};
@@ -41,15 +44,19 @@ private:
 };
 
 
-class CameraEntity : Entity
+class CameraEntity :public Entity
 {
 public:
+	CameraEntity(Camera cam);
 	CameraEntity(glm::vec3 pos, glm::vec3 target, float fov);// creates and initializes a new camera entity
-	virtual void OnUpdate() override {};
-	virtual void DoGUI() override;
+	virtual void OnUpdate() override; 
+	virtual void DoGUI() override; //does each update
+	
 private:
-	float fov;
-	float target[3];
-	float positon[3];
-
+	float fov = { 45.0f };
+	float target[3] = { 0,0,-1 };
+	float positon[3] = { 0,0,0 };
+	
+	Camera camera;
+	virtual void CreateMatrix() override;
 };

@@ -5,6 +5,7 @@ GLFWwindow* Renderer::window;
 int Renderer::Size_x;
 int Renderer::Size_y;
 
+
 GLFWwindow* Renderer::init(int sizex,int sizey)
 {
     Size_x = sizex;
@@ -70,7 +71,6 @@ void Renderer::additem(queueitem item)
 void Renderer::DrawIndexed(unsigned int VAO, unsigned int numindicies)
 {
     std::lock_guard<std::mutex> lck(Renderer::lock);
-
     if (VAO == 0) return;
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, numindicies, GL_UNSIGNED_INT, 0);

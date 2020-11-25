@@ -40,9 +40,9 @@ int main()
     Shader shad("Frag.glsl","Vert.glsl");
     Renderer::currentshader = shad;
     
-    glm::mat4 proj = glm::perspective(glm::radians(45.0f), (float)Renderer::Size_x / (float)Renderer::Size_y, 1.0f, -100000.0f);
-    proj *= glm::lookAt(glm::vec3(0.0f, 2.0f, -3.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-    Renderer::currentshader.setmat4("projection", proj);
+    //glm::mat4 proj = glm::perspective(glm::radians(45.0f), (float)Renderer::Size_x / (float)Renderer::Size_y, 1.0f, -100000.0f);
+    //proj *= glm::lookAt(glm::vec3(0.0f, 2.0f, -3.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    //Renderer::currentshader.setmat4("projection", proj);
 
     
     std::vector<std::shared_ptr<Entity>> Entities;
@@ -51,14 +51,18 @@ int main()
    
     RenderBuffer RBO(Renderer::Size_x,Renderer::Size_y);
     
+    Camera camera(45.0f,glm::vec3(0.0f, 2.0f, -3.0f), glm::vec3(0.0f));
+    std::shared_ptr<CameraEntity> cameraent =  std::make_shared<CameraEntity>(camera);
+    Entities.emplace_back(cameraent);
+
     while (!glfwWindowShouldClose(window))                                                                              
     {
     
         glClearColor(0.1f,0.1f,0.1f,1.0f);
         
-        proj = glm::perspective(glm::radians(45.0f), (float)(Renderer::Size_x*0.7) / (float)Renderer::Size_y, 1.0f, -100000.0f);
-        proj *= glm::lookAt(glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        Renderer::currentshader.setmat4("projection", proj);
+        //proj = glm::perspective(glm::radians(45.0f), (float)(Renderer::Size_x*0.7) / (float)Renderer::Size_y, 1.0f, -100000.0f);
+        //proj *= glm::lookAt(glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        //Renderer::currentshader.setmat4("projection", proj);
         
         
         Renderer::clear();
