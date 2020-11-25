@@ -338,3 +338,13 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/NewProj/include/assimp
+/NewProj/assimp.lib
+/NewProj/assimp-vc142-mt.lib
+/NewProj/assimp-vc142-mt.dll
+/NewProj/D3DX9_42.dll
+/NewProj/D3DCompiler_42.dll
+/NewProj/msvcr100.dll
+/NewProj/zlib.dll
+/NewProj/zlib1.dll
+/.gitmodules

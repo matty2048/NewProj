@@ -64,6 +64,6 @@ CameraEntity::CameraEntity(glm::vec3 pos, glm::vec3 target, float fov) : fov(fov
 
 void CameraEntity::DoGUI()
 {
-	if(ImGui::SliderFloat("fov",&this->fov,0,90)|
+	//if(ImGui::SliderFloat("fov",&this->fov,0,90)|
 
 }

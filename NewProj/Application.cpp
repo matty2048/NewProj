@@ -65,8 +65,8 @@ int main()
     
         Renderer::sync();
     
-        RBO.Resize(Renderer::Size_x*0.7,Renderer::Size_y);
         RBO.bind();
+        RBO.Resize(Renderer::Size_x*0.7,Renderer::Size_y);
         
         Renderer::clear();
         
