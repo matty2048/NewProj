@@ -17,10 +17,8 @@ RenderBuffer::RenderBuffer(unsigned int size_x, unsigned int size_y):Tex(size_x,
 
 void RenderBuffer::Resize(unsigned int new_x, unsigned int new_y)
 {
-    FBO.bind();
     Tex.changesize(new_x, new_y);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, Tex.GetSize_x(), Tex.GetSize_y());
-    FBO.unbind();
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, Tex.GetSize_x(), Tex.GetSize_y());   
 }
 
 void RenderBuffer::bind()
