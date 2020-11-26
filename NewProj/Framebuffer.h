@@ -5,8 +5,8 @@ class Framebuffer
 public:
 	Framebuffer();
 
-	void bind();
-	void unbind();
+	void Bind();
+	void UnBind();
 
 private:
 	

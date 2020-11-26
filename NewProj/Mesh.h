@@ -8,7 +8,7 @@ public:
 
 	Mesh(std::vector<vertex>& vertin, std::vector<unsigned int>& indcin); //constructor for the mesh adds vao to queue
 	~Mesh();
-	void releasemesh();
+	void ReleaseMesh();
 	unsigned int numindices;
 	unsigned int* VAO = new unsigned int; 	
 	

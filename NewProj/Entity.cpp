@@ -29,8 +29,8 @@ ModelEntity::ModelEntity(const char* path)
 void ModelEntity::OnUpdate()
 {
 	//CreateMatrix();
-	Renderer::currentshader.setmat4("model",transform);
-	Renderer::currentshader.bind();
+	Renderer::currentshader.SetMat4("model",transform);
+	Renderer::currentshader.Bind();
 	this->model->Draw(); //draws the model
 	
 }
@@ -78,7 +78,7 @@ CameraEntity::CameraEntity(glm::vec3 pos, glm::vec3 target, float fov)
 
 void CameraEntity::OnUpdate()
 {
-	if (this->camera.bound) camera.bind();
+	if (this->camera.bound) camera.Bind();
 }
 
 void CameraEntity::DoGUI()
@@ -88,7 +88,7 @@ void CameraEntity::DoGUI()
 		ImGui::SliderFloat3("Position", this->positon, -5, 5)
 		) CreateMatrix();
 
-	if (this->camera.bound ? ImGui::Button("Unbind Camera"):ImGui::Button("Bind Camera"))
+	if (this->camera.bound ? ImGui::Button("UnBind Camera"):ImGui::Button("Bind Camera"))
 	{
 		this->camera.bound = !this->camera.bound;
 	}

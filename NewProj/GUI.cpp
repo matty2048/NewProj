@@ -16,7 +16,7 @@ void GUI::doGUI(std::vector<std::shared_ptr<Entity>>& ents,const RenderBuffer& R
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 	ViewPort(RBO);
-	entitytree(ents);
+	EntityTree(ents);
 
 }
 
@@ -26,7 +26,7 @@ void GUI::RenderGUI()
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
-void GUI::entitytree(std::vector<std::shared_ptr<Entity>>& ents)
+void GUI::EntityTree(std::vector<std::shared_ptr<Entity>>& ents)
 {
 	ImGuiWindowFlags flags(ImGuiWindowFlags_NoCollapse|ImGuiWindowFlags_NoResize|ImGuiWindowFlags_NoDecoration);
 	ImGui::SetNextWindowSize(ImVec2(Renderer::Size_x * 0.3, Renderer::Size_y));

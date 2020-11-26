@@ -25,7 +25,7 @@ Mesh::~Mesh()
 	std::cout << "mesh deconstructed" << std::endl;
 }
 
-void Mesh::releasemesh()
+void Mesh::ReleaseMesh()
 {
 	queueitem item = { deletemesh, this->VAO, this->VBO, this->EBO, this->verticies, this->indices };
 	Renderer::additem(item);

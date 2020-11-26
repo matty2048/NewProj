@@ -7,9 +7,9 @@ Camera::Camera(float fov, glm::vec3 target, glm::vec3 position)
 	this->transform = glm::lookAt(position, target, glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
-void Camera::bind()
+void Camera::Bind()
 {
 	
-	Renderer::currentshader.setmat4("view", this->transform);
-	Renderer::currentshader.setmat4("projection", this->projection);
+	Renderer::currentshader.SetMat4("view", this->transform);
+	Renderer::currentshader.SetMat4("projection", this->projection);
 }

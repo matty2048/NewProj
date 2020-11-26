@@ -5,12 +5,12 @@ Framebuffer::Framebuffer()
 	glGenFramebuffers(1, &FBO_ID);
 }
 
-void Framebuffer::bind()
+void Framebuffer::Bind()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, FBO_ID);
 }
 
-void Framebuffer::unbind()
+void Framebuffer::UnBind()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	

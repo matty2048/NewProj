@@ -20,7 +20,7 @@ public:
 	static int window_x;
 	static int window_y;
 private:
-	static void entitytree(std::vector<std::shared_ptr<Entity>>& ents);
+	static void EntityTree(std::vector<std::shared_ptr<Entity>>& ents);
 	static void ViewPort(RenderBuffer RBO);
 	static void propertieswindow();
 
