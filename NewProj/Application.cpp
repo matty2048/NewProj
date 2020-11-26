@@ -15,10 +15,7 @@ int main()
     }
     GUI::init(window);
    
-    glEnable(GL_DEBUG_OUTPUT);
-    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-    glDebugMessageCallback(MessageCallback, 0);
-
+  
     const char* path = "arch.obj";
 
     Shader shad("Frag.glsl", "Vert.glsl");
