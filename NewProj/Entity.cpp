@@ -83,11 +83,12 @@ void CameraEntity::OnUpdate()
 
 void CameraEntity::DoGUI()
 {
-	if (ImGui::SliderFloat("FOV", &this->fov, 0, 90) ||
-		ImGui::SliderFloat3("Target", this->target, -5, 5) ||
+	if (ImGui::SliderFloat("FOV", &this->fov, 0, 90) |
+		ImGui::SliderFloat3("Target", this->target, -5, 5)|
 		ImGui::SliderFloat3("Position", this->positon, -5, 5)
 		) CreateMatrix();
-	if (ImGui::Button("Bind Camera"))
+
+	if (this->camera.bound ? ImGui::Button("Unbind Camera"):ImGui::Button("Bind Camera"))
 	{
 		this->camera.bound = !this->camera.bound;
 	}
