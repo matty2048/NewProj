@@ -43,13 +43,19 @@ public:
 	static void clear(); //clears the currently bound framebuffer
 	static void shutdown();
 	
-
-
 	static Shader currentshader;
 	
 	static void additem(queueitem item);
 	static void sync();
 	
+	static void GLAPIENTRY MessageCallback(GLenum source,
+		GLenum type,
+		GLuint id,
+		GLenum severity,
+		GLsizei length,
+		const GLchar* message,
+		const void* userParam);
+
 	static void DrawIndexed(unsigned int VAO,unsigned int numindicies); //draws in indexed mode//
 	
 	static std::mutex lock;

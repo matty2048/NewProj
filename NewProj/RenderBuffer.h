@@ -7,8 +7,8 @@ class RenderBuffer
 public:
 	RenderBuffer(unsigned int size_x,unsigned int size_y);
 	void Resize(unsigned int new_x, unsigned int new_y);
-	void bind();
-	void unbind();
+	void Bind();
+	void UnBind();
 	unsigned int GetTexID();
 	unsigned int operator() ()
 	{

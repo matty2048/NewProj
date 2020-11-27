@@ -15,7 +15,7 @@ public:
 		std::cout << "deconstructed model" << std::endl;
 		for (unsigned int i=0;i<meshes.size();i++)
 		{
-			meshes[i].releasemesh();
+			meshes[i].ReleaseMesh();
 		}
 	};
 	void Draw(); //draws the meshes //might not if data hasnt loaded yet
