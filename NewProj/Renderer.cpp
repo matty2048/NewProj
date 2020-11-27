@@ -107,7 +107,7 @@ void Renderer::addmesh(queueitem item)
 
 void Renderer::removemesh(queueitem item)
 {
-
+    std::cout << "mesh removed" << std::endl;
     glDeleteBuffers(1, item.EBO);
     glDeleteBuffers(1, item.VBO);
     glDeleteVertexArrays(1, item.VAO);
