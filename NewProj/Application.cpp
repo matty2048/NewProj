@@ -52,10 +52,10 @@ int main()
         RBO.UnBind(); //unbinds the render buffer so default render buffer is used
         
         
-        GUI::doGUI(Entities,RBO); //will draw contents of RBO.FBO on a window & draw entities gui parts
+        GUI::DoGUI(Entities,RBO); //will draw contents of RBO.FBO on a window & draw entities gui parts
         
         
-        GUI::RenderGUI();
+        GUI::RenderGUI(); //renders the GUI 
 
         glfwSwapBuffers(window);
         glfwPollEvents();

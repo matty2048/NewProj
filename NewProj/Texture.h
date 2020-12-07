@@ -9,7 +9,7 @@ public:
 	Texture(unsigned int size_x,unsigned int size_y); //create empty texture with size 
 	Texture(const char* path); //create texture from path
 
-	void changesize(unsigned int new_x,unsigned int new_y);
+	void ChangeSize(unsigned int new_x,unsigned int new_y);
 	unsigned int GetSize_x() { return size_x; };
 	unsigned int GetSize_y() { return size_y; };
 	unsigned int GetTexID() { return TexID; };
