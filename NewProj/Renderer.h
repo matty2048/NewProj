@@ -21,14 +21,13 @@ enum functodo
 	loadmesh, deletemesh
 };
 struct queueitem
-{
+{	//this is so garbage 
 	functodo Fn;
 	unsigned int* VAO;
-	unsigned int* VBO;
+	unsigned int* VBO;   
 	unsigned int* EBO;
 	std::vector<vertex> verticies;
 	std::vector<unsigned int> indices;
-	//Mesh* Mesh;
 };
 
 

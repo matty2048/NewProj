@@ -38,7 +38,7 @@ private:
 	virtual void CreateMatrix() override; //called before draw
 	float translate[3] = {0,0,0}; 
 	float rotate[3] = { 0,0,0 };			//transformation components 
-	float scale[3] = { 0.01,0.01,0.01 };
+	float scale[3] = { 0.01f,0.01f,0.01f };
 	std::shared_ptr<Model> model;			//shared ptr to model data
 	static std::map<const char*, std::weak_ptr<Model>> modelcache; //a cache of models to avoid reloads
 };

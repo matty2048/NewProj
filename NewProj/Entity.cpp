@@ -6,24 +6,24 @@ std::map<const char*, std::weak_ptr<Model>> ModelEntity::modelcache;
 
 ModelEntity::ModelEntity(const char* path)
 {
-	if (modelcache.find(path) != modelcache.end())
+	if (modelcache.find(path) != modelcache.end()) 
 	{
 		if (!modelcache[path].expired()) { 
-			this->model = modelcache[path].lock(); 
+			this->model = modelcache[path].lock(); //this returns the cached values
 		}
-		else
+		else //if cache expired
 		{
-			this->model = std::make_shared<Model>(path);
-			modelcache.emplace(path,this->model);
+			this->model = std::make_shared<Model>(path); //loads the model
+			modelcache.emplace(path,this->model);  //adds it to the cache
 		}
 	}
-	else
+	else //if cache misses entirely
 	{
 		this->model = std::make_shared<Model>(path);
 		modelcache.emplace(path,this->model);
 	}
-	CreateMatrix();
-	this->type = " Model";
+	CreateMatrix(); //creates the transformation matrix
+	this->type = " Model"; //changes the type of the entity
 }
 
 void ModelEntity::OnUpdate()
@@ -37,6 +37,8 @@ void ModelEntity::OnUpdate()
 
 void ModelEntity::DoGUI()
 {
+
+	//draws the sliders for the properties section
 	if (ImGui::SliderFloat3("translate", this->translate, -10, 10) |
 		ImGui::SliderFloat3("rotate", this->rotate, -6.28, 6.28) |
 		ImGui::SliderFloat3("scale", this->scale, 0, 10)) this->CreateMatrix();
@@ -44,6 +46,7 @@ void ModelEntity::DoGUI()
 
 void ModelEntity::CreateMatrix()
 {
+	//multiplies all the tranformation matricies together
 	transform = glm::mat4(1.0);
 	transform *= glm::translate(glm::mat4(1.0), glm::vec3(this->translate[0], this->translate[1], this->translate[2]));
 	transform *= glm::rotate(glm::mat4(1.0), this->rotate[0], glm::vec3(1.0, 0.0, 0.0));
