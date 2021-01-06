@@ -13,7 +13,7 @@ uniform sampler2D Spec2;
 uniform sampler2D Spec3;
 void main()
 {
-	vec3 ambient = normalize(vec3(0.4,0.5,0.1));
+	vec3 ambient = normalize(vec3(0.1,0.1,0.1));
 	vec3 lightPos = vec3 (0,0,-5);
 	vec3 norm = normalize(Normal);
 	vec3 lightDir = normalize(lightPos - FragPos);  
