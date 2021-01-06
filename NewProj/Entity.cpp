@@ -28,6 +28,7 @@ ModelEntity::ModelEntity(const char* path)
 
 void ModelEntity::OnUpdate()
 {
+	Renderer::currentshader.Bind();
 	//CreateMatrix();
 	Renderer::currentshader.SetMat4("model",transform);
 	Renderer::currentshader.Bind();

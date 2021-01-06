@@ -20,7 +20,7 @@ int main()
     Shader shad("Frag.glsl", "Vert.glsl");  //
     Renderer::currentshader = shad;         //adds the default shader
     
-    const char* path = "arch.obj";                               //
+    const char* path = "backpack.obj";                               //
     std::vector<std::shared_ptr<Entity>> Entities;               //
     Entities.emplace_back(std::make_shared<ModelEntity>(path));  // Creates the entity storage & adds two test models
     Entities.emplace_back(std::make_shared<ModelEntity>(path));  //
@@ -48,7 +48,6 @@ int main()
         
         for (auto ent : Entities)              
             ent->OnUpdate();
-        
         RBO.UnBind(); //unbinds the render buffer so default render buffer is used
         
         

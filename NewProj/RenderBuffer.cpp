@@ -2,8 +2,10 @@
 
 
 
-RenderBuffer::RenderBuffer(unsigned int size_x, unsigned int size_y):Tex(size_x,size_y)
+RenderBuffer::RenderBuffer(unsigned int size_x, unsigned int size_y)
 {
+    this->Tex = Texture(size_x, size_y);
+    glBindTexture(1, this->Tex.GetTexID());
     FBO.Bind();
     glGenRenderbuffers(1, &RBO_ID);
     glBindRenderbuffer(GL_RENDERBUFFER, RBO_ID);
@@ -24,7 +26,9 @@ void RenderBuffer::Resize(unsigned int new_x, unsigned int new_y)
 void RenderBuffer::Bind()
 {
     FBO.Bind();
+ 
     glBindRenderbuffer(GL_RENDERBUFFER, RBO_ID);
+
 }
 
 void RenderBuffer::UnBind()

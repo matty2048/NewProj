@@ -12,8 +12,9 @@ public:
 	Shader(const char* fragpath,const char* vertpath);
 	//~Shader();
 	Shader() :m_ShaderID(0) {};
-	void bind();
-	void setmat4(const char* path, glm::mat4 mat);
+	void Bind();
+	void SetMat4(const char* path, glm::mat4 mat);
+	void SetInt(const char* path, int i);
 private:
 	unsigned int m_ShaderID; //id of the shader program
 };

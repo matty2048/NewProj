@@ -55,7 +55,8 @@ void GLAPIENTRY Renderer::MessageCallback(GLenum source,
 
 void Renderer::clear()
 {
-    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_DEPTH_BUFFER_BIT);
 }
 
 void Renderer::shutdown()
@@ -89,8 +90,10 @@ void Renderer::additem(queueitem item)
 
 void Renderer::DrawIndexed(unsigned int VAO, unsigned int numindicies)
 {
-    std::lock_guard<std::mutex> lck(Renderer::lock);
+    
     if (VAO == 0) return;
+
+
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, numindicies, GL_UNSIGNED_INT, 0);
     
@@ -119,9 +122,18 @@ void Renderer::addmesh(queueitem item)
     // vertex normals
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (void*)offsetof(vertex, normal));
+
+
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(vertex), (void*)offsetof(vertex, TexCoords));
    // glDeleteBuffers(1, currentitem.VBO);
    // glDeleteBuffers(1, currentitem.EBO);
     glBindVertexArray(0);
+
+    for (unsigned int i = 0; i < currentitem.Textures.size(); i++) //loads each texture
+    {
+        currentitem.Textures[i]->LoadTex();
+    }
 }
 
 void Renderer::removemesh(queueitem item)

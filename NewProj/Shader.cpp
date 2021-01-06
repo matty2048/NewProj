@@ -57,15 +57,22 @@ Shader::Shader(const char* fragpath, const char* vertpath)
 	glDeleteShader(vshader);
 }
 
-void Shader::bind()
+void Shader::Bind()
 {
 	glUseProgram(m_ShaderID);
 }
 
-void Shader::setmat4(const char* path, glm::mat4 mat)
+void Shader::SetMat4(const char* path, glm::mat4 mat)
 {
 	glUseProgram(m_ShaderID);
 	glUniformMatrix4fv(glGetUniformLocation(m_ShaderID,path), 1, GL_FALSE, &mat[0][0]);
 	glUseProgram(0);
 
+}
+
+void Shader::SetInt(const char* path, int i)
+{
+	glUseProgram(m_ShaderID);
+	glUniform1i(glGetUniformLocation(m_ShaderID, path), i);
+	glUseProgram(0);
 }

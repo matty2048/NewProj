@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "Shader.h"
-
+#include "Texture.h"
 #include <memory>
 #include <iostream>
 #include <mutex>
@@ -15,6 +15,7 @@ struct vertex
 {
 	glm::vec3 position;
 	glm::vec3 normal;
+	glm::vec2 TexCoords;
 };
 enum functodo
 {
@@ -28,6 +29,7 @@ struct queueitem
 	unsigned int* EBO;
 	std::vector<vertex> verticies;
 	std::vector<unsigned int> indices;
+	std::vector<Texture*> Textures;
 	//Mesh* Mesh;
 };
 

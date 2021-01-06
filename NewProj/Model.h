@@ -7,6 +7,7 @@
 #include "Shader.h"
 #include "Mesh.h"
 #include "Renderer.h"
+
 class Model
 {
 public:
@@ -25,5 +26,6 @@ private:
 	void import(const char* path); //dispatched on model creation
 	void ProcessNode(aiNode* node, const aiScene* scene);
 	Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
+	std::vector<Texture> LoadTex(aiMaterial* material, aiTextureType* type, std::string TypeName);
 };
 
