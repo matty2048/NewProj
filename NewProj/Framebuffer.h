@@ -9,8 +9,6 @@ public:
 	void UnBind();
 
 private:
-	
 	unsigned int FBO_ID;
-
 };
 

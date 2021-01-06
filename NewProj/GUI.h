@@ -15,7 +15,7 @@ class GUI
 {
 public:
 	static void init(GLFWwindow* window);
-	static void doGUI(std::vector<std::shared_ptr<Entity>>& ents,const RenderBuffer& RBO);
+	static void DoGUI(std::vector<std::shared_ptr<Entity>>& ents,const RenderBuffer& RBO);
 	static void RenderGUI();
 	static int window_x;
 	static int window_y;
