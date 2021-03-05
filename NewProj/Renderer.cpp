@@ -35,11 +35,11 @@ GLFWwindow* Renderer::init(int sizex,int sizey)
     glEnable(GL_DEBUG_OUTPUT);
     glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
     glDebugMessageCallback(Renderer::MessageCallback, 0);
-
+    glEnable(GL_DEPTH_TEST);
     return window;
 }
 
-
+//<code copied from OpenGL wiki>
 void GLAPIENTRY Renderer::MessageCallback(GLenum source,
     GLenum type,
     GLuint id,
@@ -52,6 +52,8 @@ void GLAPIENTRY Renderer::MessageCallback(GLenum source,
         (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
         type, severity, message);
 }
+//</code copied from OpenGL wiki>
+
 
 void Renderer::clear()
 {
@@ -138,11 +140,10 @@ void Renderer::addmesh(queueitem item)
 
 void Renderer::removemesh(queueitem item)
 {
-
     glDeleteBuffers(1, item.EBO);
     glDeleteBuffers(1, item.VBO);
     glDeleteVertexArrays(1, item.VAO);
-
+    
     delete item.VAO;
     delete item.VBO;
     delete item.EBO;

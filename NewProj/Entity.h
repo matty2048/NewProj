@@ -39,7 +39,7 @@ private:
 	float translate[3] = {0,0,0};
 	float rotation[3] = { 0,0,0 };
 	float scale[3] = { 0.1,0.1,0.1 };
-	std::shared_ptr<Model> model;
+	std::shared_ptr<Model> model; //shared pointer to a model, keeps a ref count
 	static std::map<const char*, std::weak_ptr<Model>> modelcache;
 };
 

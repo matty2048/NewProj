@@ -5,17 +5,19 @@ Model::Model(const char* path)
 	std::cout << "constructed model" << std::endl;
 	std::thread(&Model::import, this, path).detach();
 	//import(path);
+	//import(path);
 }
 
 void Model::Draw()
 {
-	std::lock_guard<std::mutex> lck(Renderer::lock);
+	//std::lock_guard<std::mutex> lck(Renderer::lock);
 	for (int i = 0; i < meshes.size(); i++)
 	{
 		unsigned int nrDiff = 1;
 		unsigned int nrSpec = 1;
 		for (unsigned int ii = 0; ii < meshes[i].numtex; ii++)
 		{
+			if (meshes[i].GetTex(ii) == nullptr) break; 
 			std::string CurName;
 			glActiveTexture(GL_TEXTURE0 + ii);
 			if (meshes[i].GetTex(ii)->type == aiTextureType_DIFFUSE)
@@ -33,6 +35,8 @@ void Model::Draw()
 			}
 			glBindTexture(GL_TEXTURE_2D,meshes[i].GetTex(ii)->GetTexID());
 		}
+		if (meshes[i].numtex == 0) Renderer::currentshader.SetInt("HasTex", 0);
+		else Renderer::currentshader.SetInt("HasTex", 1);
 		Renderer::currentshader.Bind();
 		Renderer::DrawIndexed(*meshes[i].VAO, meshes[i].numindices);
 		//glActiveTexture(GL_TEXTURE0);
@@ -42,7 +46,7 @@ void Model::Draw()
 
 void Model::import(const char* path)
 {
-	std::lock_guard<std::mutex> lck(Renderer::lock);
+	//std::lock_guard<std::mutex> lck(Renderer::lock);
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate |aiProcessPreset_TargetRealtime_Fast);
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
@@ -99,15 +103,17 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 			indicies.push_back(face.mIndices[ii]);
 		}
 	}
-
 	if (mesh->mMaterialIndex >= 0) //if the mesh has materials
 	{
+		//std::lock_guard<std::mutex> lck(Renderer::lock);
 		aiMaterial* mat = scene->mMaterials[mesh->mMaterialIndex]; //pointer to a material
 		for (unsigned int i = 0; i < mat->GetTextureCount(aiTextureType_DIFFUSE); i++)
 		{
 			aiString path;
 			mat->GetTexture(aiTextureType_DIFFUSE, i, &path); //gets the textures path
+			std::cout << path.C_Str();
 			Texture* t = new Texture(path.C_Str());
+			
 			Textures.push_back(t);
 			Textures.back()->type = aiTextureType_DIFFUSE;
 		} //loads the diffuse textures
@@ -115,6 +121,7 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 		{
 			aiString path;
 			mat->GetTexture(aiTextureType_SPECULAR, i, &path); //gets the textures path
+			std::cout << path.C_Str();
 			Texture* t = new Texture(path.C_Str());
 			Textures.push_back(t);
 			Textures.back()->type = aiTextureType_SPECULAR;

@@ -70,6 +70,14 @@ void Shader::SetMat4(const char* path, glm::mat4 mat)
 
 }
 
+void Shader::SetBool(const char* path, bool mat)
+{
+	glUseProgram(m_ShaderID);
+	glUniform1i(glGetUniformLocation(m_ShaderID, path), mat);
+	glUseProgram(0);
+
+}
+
 void Shader::SetInt(const char* path, int i)
 {
 	glUseProgram(m_ShaderID);
