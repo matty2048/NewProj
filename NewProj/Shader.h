@@ -14,6 +14,8 @@ public:
 	Shader() :m_ShaderID(0) {};
 	void Bind();
 	void SetMat4(const char* path, glm::mat4 mat);
+	void SetInt(const char* path, int i);
+	void SetBool(const char* path, bool mat);
 private:
 	unsigned int m_ShaderID; //id of the shader program
 };

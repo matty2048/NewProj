@@ -28,6 +28,7 @@ ModelEntity::ModelEntity(const char* path)
 
 void ModelEntity::OnUpdate()
 {
+	Renderer::currentshader.Bind();
 	//CreateMatrix();
 	Renderer::currentshader.SetMat4("model",transform);
 	Renderer::currentshader.Bind();
@@ -40,7 +41,7 @@ void ModelEntity::DoGUI()
 
 	//draws the sliders for the properties section
 	if (ImGui::SliderFloat3("translate", this->translate, -10, 10) |
-		ImGui::SliderFloat3("rotate", this->rotate, -6.28, 6.28) |
+		ImGui::SliderFloat3("rotate", this->rotation, -6.28, 6.28) |
 		ImGui::SliderFloat3("scale", this->scale, 0, 10)) this->CreateMatrix();
 }
 
@@ -49,9 +50,9 @@ void ModelEntity::CreateMatrix()
 	//multiplies all the tranformation matricies together
 	transform = glm::mat4(1.0);
 	transform *= glm::translate(glm::mat4(1.0), glm::vec3(this->translate[0], this->translate[1], this->translate[2]));
-	transform *= glm::rotate(glm::mat4(1.0), this->rotate[0], glm::vec3(1.0, 0.0, 0.0));
-	transform *= glm::rotate(glm::mat4(1.0), this->rotate[1], glm::vec3(0.0, 1.0, 0.0));
-	transform *= glm::rotate(glm::mat4(1.0), this->rotate[2], glm::vec3(0.0, 0.0, 1.0));
+	transform *= glm::rotate(glm::mat4(1.0), this->rotation[0], glm::vec3(1.0, 0.0, 0.0));
+	transform *= glm::rotate(glm::mat4(1.0), this->rotation[1], glm::vec3(0.0, 1.0, 0.0));
+	transform *= glm::rotate(glm::mat4(1.0), this->rotation[2], glm::vec3(0.0, 0.0, 1.0));
 	transform *= glm::scale(glm::mat4(1.0), glm::vec3(this->scale[0], this->scale[1], this->scale[2]));
 }
 

@@ -1,30 +1,51 @@
 #include "Mesh.h"
 
-//TODO: FIX unneccesarry copies in mesh data!!!
-
-Mesh::Mesh(std::vector<vertex>& vertin, std::vector<unsigned int>& indcin)
+Mesh::Mesh(std::vector<vertex>& vertin, std::vector<unsigned int>& indcin, std::vector<Texture*> texin)
 {
 	std::cout << "mesh constructed" << std::endl;
-	std::lock_guard<std::mutex> lck(Renderer::lock); //creates mutex lock to avoid asynchronous problems
-	this->indices = indcin; //copys the index data into the mesh
-	this->verticies = vertin; //copys the vertex data into the mesh 
-	this->numindices = indcin.size(); //gets the number of indices in the mesh
 	
-	//TODO:  this is bad and i dont like  it
-	queueitem item = {loadmesh,this->VAO,this->VBO,this->EBO,this->verticies,this->indices};//saves the data so that it can be loaded into the GPU
-	Renderer::additem(item); //puts the mesh data onto the synchronization stack to be delt with
+	this->indices = indcin;
+	this->verticies = vertin;
+	this->numindices = indcin.size();
+	this->textures = texin;
+	this->numtex = textures.size();
+	
+	queueitem item = {loadmesh,this->VAO,this->VBO,this->EBO,this->verticies,this->indices,this->textures};
+	
+	//queueitem item = {this};
+	std::lock_guard<std::mutex> lck(Renderer::lock);
+	Renderer::additem(item);
 	return;
-	// mutex lock is then freed so other threads can access data
 }
 
 Mesh::~Mesh()
 {
+	
+	//delete this->VAO;
+	//delete this->VBO;
+	//delete this->EBO;
 	std::cout << "mesh deconstructed" << std::endl;
 }
 
+//this is moderately inefficient
 void Mesh::ReleaseMesh()
 {
-	//this is also bad and  super unnecessary!!!!
-	queueitem item = { deletemesh, this->VAO, this->VBO, this->EBO, this->verticies, this->indices }; //TODO: FIX!
+	queueitem item = { deletemesh, this->VAO, this->VBO, this->EBO, this->verticies, this->indices,this->textures };
+	std::lock_guard<std::mutex> lck(Renderer::lock);
 	Renderer::additem(item);
+}
+
+
+Texture* Mesh::GetTex(int i)
+{
+	if (numtex == 0 || textures.size() == 0) return nullptr;
+	
+	if (textures[i]->finished)
+	{
+			return textures[i];
+	}
+	else
+	{
+			return nullptr;
+	}
 }

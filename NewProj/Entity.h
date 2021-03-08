@@ -8,7 +8,7 @@
 #include "Camera.h"
 #include "Model.h"
 
-class Entity //base entity class
+class Entity
 {
 public:
 	Entity() {};
@@ -25,22 +25,22 @@ protected:
 };
 
 
-class ModelEntity :public Entity //Entity class for when a model is used
+class ModelEntity :public Entity
 {
 public:
 	
-	ModelEntity(std::shared_ptr<Model> modl) :model(modl) { CreateMatrix(); }; //creates model entity from existing model
-	ModelEntity(const char* path);  //creates model  entity from  path
+	ModelEntity(std::shared_ptr<Model> modl) :model(modl) { CreateMatrix(); };
+	ModelEntity(const char* path);
 	virtual void OnUpdate() override; //called to draw
-	virtual void DoGUI() override;  //called to display GUI sliders
+	virtual void DoGUI() override;
 	
 private:
 	virtual void CreateMatrix() override; //called before draw
-	float translate[3] = {0,0,0}; 
-	float rotate[3] = { 0,0,0 };			//transformation components 
-	float scale[3] = { 0.01f,0.01f,0.01f };
-	std::shared_ptr<Model> model;			//shared ptr to model data
-	static std::map<const char*, std::weak_ptr<Model>> modelcache; //a cache of models to avoid reloads
+	float translate[3] = {0,0,0};
+	float rotation[3] = { 0,0,0 };
+	float scale[3] = { 0.1,0.1,0.1 };
+	std::shared_ptr<Model> model; //shared pointer to a model, keeps a ref count
+	static std::map<const char*, std::weak_ptr<Model>> modelcache;
 };
 
 
@@ -50,13 +50,13 @@ public:
 	CameraEntity(Camera cam);
 	CameraEntity(glm::vec3 pos, glm::vec3 target, float fov);// creates and initializes a new camera entity
 	virtual void OnUpdate() override; 
-	virtual void DoGUI() override; //options sliders
+	virtual void DoGUI() override; //does each update
 	
 private:
-	float fov = { 45.0f }; 
-	float rotation[3] = { 0,0,-1 };	//components of transformation matrix 
+	float fov = { 45.0f };
+	float rotation[3] = { 0,0,-1 };
 	float positon[3] = { 0,0,0 };
 	
-	Camera camera;  
+	Camera camera;
 	virtual void CreateMatrix() override;
 };
