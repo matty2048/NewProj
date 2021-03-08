@@ -13,11 +13,11 @@ Texture::Texture(unsigned int size_x, unsigned int size_y):size_x(size_x),size_y
 void Texture::ChangeSize(unsigned int new_x, unsigned int new_y)
 //used to resize textures
 {
-    this->size_x = new_x;
-    this->size_y = new_y;
-    glBindTexture(GL_TEXTURE_2D, TexID); //binds texture
+    this->size_x = new_x;                                                                                   
+    this->size_y = new_y;                                                                                   
+    glBindTexture(GL_TEXTURE_2D, TexID); //binds texture                                                    
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, new_x, new_y, 0, GL_RGB, GL_UNSIGNED_BYTE, 0); //changes the size
-    
-}
+                                                                                                            
+}                                                                                                           
 
 

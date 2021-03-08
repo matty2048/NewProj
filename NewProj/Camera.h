@@ -14,5 +14,5 @@ public:
 	glm::mat4 projection;
 	glm::mat4 transform;
 	bool bound;
-private:
+
 };
