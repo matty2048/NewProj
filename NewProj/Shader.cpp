@@ -12,20 +12,20 @@ Shader::Shader(const char* fragpath, const char* vertpath)
 	vertfile.open(vertpath);
 	std::stringstream vsstream;
 	vsstream << vertfile.rdbuf();
-	std::string vstring = vsstream.str();
+	std::string vstring = vsstream.str(); 
 
 	unsigned int vshader = glCreateShader(GL_VERTEX_SHADER);
 	unsigned int fshader = glCreateShader(GL_FRAGMENT_SHADER);
 
 	const char* vcode = vstring.c_str();
-	const char* fcode = fstring.c_str();
+	const char* fcode = fstring.c_str(); //loads the shaders code
 
 	
 	int success;
 	char infolog[512];
-	glShaderSource(vshader, 1, &vcode , NULL);
-	glCompileShader(vshader);
-	glGetShaderiv(vshader, GL_COMPILE_STATUS, &success);
+	glShaderSource(vshader, 1, &vcode , NULL); //adds the vertex shader code
+	glCompileShader(vshader); //compiles the vertex shader
+	glGetShaderiv(vshader, GL_COMPILE_STATUS, &success); //checks errors
 	if (!success)
 	{
 		glGetShaderInfoLog(vshader, 512, NULL, infolog);
@@ -33,27 +33,27 @@ Shader::Shader(const char* fragpath, const char* vertpath)
 		return;
 	}
 
-	glShaderSource(fshader, 1, &fcode, NULL);
-	glCompileShader(fshader);
-	glGetShaderiv(fshader, GL_COMPILE_STATUS, &success);
+	glShaderSource(fshader, 1, &fcode, NULL); //adds fragment shader code
+	glCompileShader(fshader); //compiles fragment shader
+	glGetShaderiv(fshader, GL_COMPILE_STATUS, &success); //checks for errors
 	if (!success)
 	{
 		glGetShaderInfoLog(fshader, 512, NULL, infolog);
 		std::cout << "frag shader error " << infolog << std::endl;
 		return;
 	}
-	m_ShaderID = glCreateProgram();
-	glAttachShader(m_ShaderID, vshader);
+	m_ShaderID = glCreateProgram(); //creates the entire shader program
+	glAttachShader(m_ShaderID, vshader); //attaches the vertex and fragment shaders
 	glAttachShader(m_ShaderID, fshader);
 
-	glLinkProgram(m_ShaderID);
-	glGetProgramiv(m_ShaderID, GL_LINK_STATUS, &success);
+	glLinkProgram(m_ShaderID); //links the two shaders
+	glGetProgramiv(m_ShaderID, GL_LINK_STATUS, &success);//checks for errors
 	if (!success)
 	{
 		glGetProgramInfoLog(m_ShaderID, 512, NULL, infolog);
 		std::cout << "Link error " << infolog << std::endl;
 	}
-	glDeleteShader(fshader);
+	glDeleteShader(fshader); //cleans up
 	glDeleteShader(vshader);
 }
 
