@@ -10,8 +10,8 @@ public:
 	~Mesh();
 	void ReleaseMesh();
 	Texture* GetTex(int i); //gets the i'th texture 
-	unsigned int numindices;
-	unsigned int numtex;
+	unsigned int numindices ;
+	unsigned int numtex ;
 	unsigned int* VAO = new unsigned int; 	
 	
 private:

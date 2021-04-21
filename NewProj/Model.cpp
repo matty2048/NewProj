@@ -2,6 +2,7 @@
 
 Model::Model(const char* path)
 {
+	//this is particularly interesting code
 	std::cout << "constructed model" << std::endl;
 	std::thread(&Model::import, this, path).detach();
 	//import(path);
@@ -22,14 +23,14 @@ void Model::Draw()
 			glActiveTexture(GL_TEXTURE0 + ii);
 			if (meshes[i].GetTex(ii)->type == aiTextureType_DIFFUSE)
 			{
-				CurName = "Diffuse" + std::to_string(nrDiff);
+				CurName = "Diffuse" + std::to_string(nrDiff); //generates the uniform name from the number of difuse textures
 				Renderer::currentshader.SetInt(CurName.c_str(), ii);
 		
 				nrDiff += 1; //increments the number of diffuse textures
 			} //diffuse texture
 			if (meshes[i].GetTex(ii)->type == aiTextureType_SPECULAR)
 			{
-				CurName = "Spec" + std::to_string(nrSpec);
+				CurName = "Spec" + std::to_string(nrSpec); //generates the uniform name from the number of specular textures
 				Renderer::currentshader.SetInt(CurName.c_str(), ii);
 				nrSpec += 1; //increments the number of diffuse textures
 			}
@@ -88,19 +89,19 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 		Vertex.normal = glm::vec3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
 		if (mesh->HasTextureCoords(0)) //if there are texture coords
 		{
-			Vertex.TexCoords.x = mesh->mTextureCoords[0][i].x;
+			Vertex.TexCoords.x = mesh->mTextureCoords[0][i].x; //copies the coordinates in
 			Vertex.TexCoords.y = mesh->mTextureCoords[0][i].y;
 		}
 		else
-			Vertex.TexCoords = glm::vec2(0.0);
-		verticies.push_back(Vertex);
+			Vertex.TexCoords = glm::vec2(0.0); 
+		verticies.push_back(Vertex); //adds the vertex to the vector
 	}
 
-	for (unsigned int i = 0; i < mesh->mNumFaces; i++)
+	for (unsigned int i = 0; i < mesh->mNumFaces; i++) //adds all the indicies
 	{
 		aiFace face = mesh->mFaces[i];
 		for (unsigned int ii = 0; ii < face.mNumIndices; ii++){
-			indicies.push_back(face.mIndices[ii]);
+			indicies.push_back(face.mIndices[ii]); 
 		}
 	}
 	if (mesh->mMaterialIndex >= 0) //if the mesh has materials
@@ -112,9 +113,9 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 			aiString path;
 			mat->GetTexture(aiTextureType_DIFFUSE, i, &path); //gets the textures path
 			std::cout << path.C_Str();
-			Texture* t = new Texture(path.C_Str());
+			Texture* t = new Texture(path.C_Str()); //loads the texture from file
 			
-			Textures.push_back(t);
+			Textures.push_back(t); 
 			Textures.back()->type = aiTextureType_DIFFUSE;
 		} //loads the diffuse textures
 		for (unsigned int i = 0; i < mat->GetTextureCount(aiTextureType_SPECULAR); i++)
@@ -124,13 +125,13 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 			std::cout << path.C_Str();
 			Texture* t = new Texture(path.C_Str());
 			Textures.push_back(t);
-			Textures.back()->type = aiTextureType_SPECULAR;
+			Textures.back()->type = aiTextureType_SPECULAR; 
 		} //loads the specular textures
 	
 	}
 
 	
 	
-	return Mesh(verticies,indicies,Textures);
+	return Mesh(verticies,indicies,Textures); 
 }
 
