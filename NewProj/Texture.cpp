@@ -31,7 +31,7 @@ Texture::Texture(const char* path) //loads texture from path
         int y;
 
         int numberofChannels;
-        this->data = stbi_load(path, &x, &y, &numberofChannels, 0);
+        this->data = stbi_load("diffuse.jpg", &x, &y, &numberofChannels, 0);
         this->size_x = x;
         this->size_y = y;
         Texture* a = this;

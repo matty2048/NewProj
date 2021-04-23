@@ -5,7 +5,7 @@
 RenderBuffer::RenderBuffer(unsigned int size_x, unsigned int size_y)
 {
     this->Tex = Texture(size_x, size_y);
-    glBindTexture(1, this->Tex.GetTexID());
+    glBindTexture(GL_TEXTURE_2D, this->Tex.GetTexID());
     FBO.Bind();
     glGenRenderbuffers(1, &RBO_ID);
     glBindRenderbuffer(GL_RENDERBUFFER, RBO_ID);
