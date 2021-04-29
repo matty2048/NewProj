@@ -4,7 +4,6 @@
 #include "GUI.h"
 #include <memory>
 
- // TODO: I dont like the camera controller
 int main()
 {
 
