@@ -39,6 +39,7 @@ void GUI::EntityTree(std::vector<std::shared_ptr<Entity>>& ents)
 	ImGui::Begin("EntityWindow",nullptr,flags);
 	ImGui::BeginMenuBar();
 	if (ImGui::Button("Add")) {
+		//<Code inspired by microsoft website examples>
 		HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED |
 			COINIT_DISABLE_OLE1DDE);
 		if (SUCCEEDED(hr))
@@ -85,7 +86,7 @@ void GUI::EntityTree(std::vector<std::shared_ptr<Entity>>& ents)
 			}
 			CoUninitialize();
 		}
-
+		//</Code inspired by microsoft website examples>
 
 	}
 	ImGui::EndMenuBar();
